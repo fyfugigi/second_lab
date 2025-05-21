@@ -1,72 +1,164 @@
-/* Стилі для контейнера всієї гри */
-.game {
-  /* Використовуємо flexbox для розміщення елементів всередині контейнера */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.home-container {
   display: flex;
-  /* Розміщуємо елементи вертикально один під одним */
   flex-direction: column;
-  /* Вирівнюємо елементи по центру горизонтально */
+  height: 100vh; 
+  width: 100vw;  
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.theme-button {
+  flex: 1;
+  font-size: 2.8rem;
+  font-weight: 700;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  /* Встановлюємо шрифт за замовчуванням для тексту всередині гри */
-  font-family: 'Arial', sans-serif;
+  width: 100%;
+  outline: none;
+  user-select: none;
 }
 
-/* Стилі для ігрового поля */
-.game-board {
-  /* Використовуємо grid layout для розміщення клітинок ігрового поля */
-  display: grid;
-  /* Визначаємо три колонки однакової ширини ('auto' автоматично підлаштовує розмір) */
-  grid-template-columns: repeat(3, auto);
-  /* Додаємо суцільну зелену межу навколо ігрового поля */
-  border: 3px solid #4CAF50; /* Колір: зелений */
-  /* Додаємо легку тінь для візуального підняття ігрового поля */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Горизонтальне зміщення, вертикальне зміщення, розмиття, колір */
-  /* Додаємо відступ знизу, щоб відокремити ігрове поле від іншої інформації */
+.theme-button:hover {
+  filter: brightness(1.15);
+}
+
+.theme-space {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+}
+
+.theme-fantasy {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+}
+
+.theme-classic {
+  background: linear-gradient(135deg, #434343, #000000);
+}
+
+.game {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 15px;
+  color: #333;
+  user-select: none;
+}
+
+.game.space {
+  background: radial-gradient(circle, #000 30%, #1a1a40 100%);
+  color: white;
+}
+
+.game.fantasy {
+  background: linear-gradient(to right, #8e44ad, #3498db);
+  color: #fff;
+}
+
+.game.classic {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.game > h1 {
   margin-bottom: 20px;
+  font-size: 2.5rem;
+  text-transform: uppercase;
 }
 
-/* Стилі для контейнера з інформацією про гру (наприклад, поточний гравець, результат) */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 120px);
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.2rem;
+  border: 3px solid #4caf50;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  background-color: #f0f8ff;
+  color: #333;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.cell:hover:not(:disabled) {
+  background-color: #e0ffff;
+  transform: scale(1.05);
+}
+
+.cell:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
 .game-info {
-  /* Додаємо відступ зверху, щоб відокремити інформацію від ігрового поля */
-  margin-top: 20px;
-  /* Встановлюємо розмір шрифту для тексту в інформаційному блоці */
-  font-size: 1.2em;
-  /* Вирівнюємо текст по центру */
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  min-height: 2em;
+  font-weight: 600;
   text-align: center;
 }
 
-/* Стилі для кнопки всередині інформаційного блоку (наприклад, кнопка "Розпочати знову") */
 .game-info button {
-  /* Додаємо відступ зверху від кнопки до попереднього елемента */
   margin-top: 10px;
-  /* Встановлюємо внутрішні відступи кнопки (зверху/знизу, зліва/справа) */
-  padding: 10px 20px;
-  /* Встановлюємо розмір шрифту для тексту на кнопці */
-  font-size: 1.1em;
-  /* Вказуємо, що при наведенні курсора миші він повинен змінюватися на вказівник,
-     що сигналізує про інтерактивність елемента */
-  cursor: pointer;
-  /* Встановлюємо колір фону кнопки на зелений */
-  background-color: #4CAF50;
-  /* Встановлюємо колір тексту на кнопці на білий */
-  color: white;
-  /* Видаляємо стандартну межу кнопки */
+  padding: 10px 25px;
+  font-size: 1.2rem;
   border: none;
-  /* Заокруглюємо кути кнопки */
-  border-radius: 5px;
-  /* Додаємо плавний перехід для зміни кольору фону при наведенні */
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  font-weight: 600;
   transition: background-color 0.3s ease;
+  user-select: none;
 }
 
-/* Стилі для кнопки при наведенні курсора миші */
 .game-info button:hover {
-  /* Змінюємо колір фону кнопки на темніший зелений при наведенні */
-  background-color: #388E3C;
+  background-color: #45a049;
 }
 
-/* Стилі для заголовка першого рівня (<h1>) */
-h1 {
-  /* Встановлюємо колір тексту заголовка на зелений */
-  color: #4CAF50;
-  /* Додаємо відступ знизу від заголовка */
-  margin-bottom: 20px;
+.game.space .game-info button {
+  background-color: #8bc34a;
+  color: #000;
+}
+
+.game.space .game-info button:hover {
+  background-color: #7cb342;
+}
+
+.game.fantasy .game-info button {
+  background-color: #9b59b6;
+  color: #fff;
+}
+
+.game.fantasy .game-info button:hover {
+  background-color: #8e44ad;
 }

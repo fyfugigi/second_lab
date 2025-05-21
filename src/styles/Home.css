@@ -1,0 +1,38 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+  margin: 0;
+  padding: 0;
+}
+
+.theme-button {
+  flex: 1; 
+  font-size: 2.5rem;
+  font-weight: bold;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  outline: none;
+}
+
+.theme-button:hover {
+  filter: brightness(110%);
+}
+
+.theme-space {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+}
+
+.theme-fantasy {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+}
+
+.theme-classic {
+  background: linear-gradient(135deg, #434343, #000000);
+}
